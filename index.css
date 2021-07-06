@@ -13,4 +13,14 @@ body {
 .results {
 	margin-top: 20px;
 }
+.body h2 {
+	color:black
+}
 
+.body h3 {
+	color:blue
+}
+
+.body movies-container{
+	display: flex;
+}
