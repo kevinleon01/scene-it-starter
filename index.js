@@ -34,7 +34,17 @@ function renderMovies(movieArray) {
 const searchForm = document.querySelector('#search-form');
 searchForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const moviesContainer = document.querySelector('#movies-container');
-    moviesContainer.innerHTML = renderMovies(movieData);
-    //console.log('click search')
+    const searchString = document.getElementById('search-bar').value
+    const urlEncodedString = encodeURIComponent(searchString);
+    fetch("http://www.omdbapi.com/?apikey=59354c85&s=" + urlEncodedString)
+        .then(Response => {
+            movieData = Response.data.Search;
+            const moviesContainer = document.querySelector('.results')
+            container.innerHTML = renderMovies(Response.data.Search)
+        }
+        )
 })
+
+    //const moviesContainer = document.querySelector('#movies-container');
+    // moviesContainer.innerHTML = renderMovies(movieData);
+    //console.log('click search')
