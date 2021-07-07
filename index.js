@@ -1,7 +1,16 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // const moviesContainer = document.querySelector('#movies-container');
-    // const searchForm = document.querySelector('#search-form');
-})
+function saveToWatchList(MovieID) {
+    document.addEventListener('DOMContentLoaded', function () {
+        // const moviesContainer = document.querySelector('#movies-container');
+        // const searchForm = document.querySelector('#search-form');
+        document.addEventListener('click', function (e) {
+            e.preventDefault();
+            const watchList = localStorage.getItem('watchList');
+            let parseList = JSON.parse(watchList)
+            let movieContainer = document.querySelector(".results")
+            movieContainer.innerHTML = renderMovies(parseList)
+        })
+    })
+}
 
 function renderMovies(movieArray) {
     console.log('test')
@@ -13,7 +22,7 @@ function renderMovies(movieArray) {
                     <div class="card-body">
                         <h5 class="card-title">${currentMovie.Title}</h5>
                         <p class="card-text">${currentMovie.Year}</p>
-                        <a href="# class="btn btn-primary">Add</a>
+                        <a href="#" onclick = "saveToWatchList('${currentMovie.imdbID}')" class="btn btn-danger">Add To Watch List</a>
                     </div
                 </div>
             </div`
@@ -28,35 +37,4 @@ searchForm.addEventListener('submit', function (e) {
     const moviesContainer = document.querySelector('#movies-container');
     moviesContainer.innerHTML = renderMovies(movieData);
     //console.log('click search')
-})
-
-
-
-function renderMovies(movieArray) {
-    const movieHtmlArray = movieArray.map((currentmovie) => {
-        return `<div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card w-100 mb-5">
-        <img src="${currentmovie.Poster}" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">${currentmovie.Title}</h5>
-        <p class="card-text"> ${currentmovie.Year} 
-        </p>
-        <a href="#" onclick = "saveToWatchList('${currentmovie.imdbID}')" class="btn btn-danger">Add To Watch List</a>
-        </div>
-        </div>
-        </div>`
-    })
-
-
-    return movieHtmlArray.join("")
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const watchlist = localStorage.getItem('watchlist');
-    console.log(watchlist)
-    var parselist = JSON.parse(watchlist)
-    console.log(parselist)
-    const moviecontainer = document.querySelector(".results")
-    moviecontainer.innerHTML = renderMovies(parselist)
 })
